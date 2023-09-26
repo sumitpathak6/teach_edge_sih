@@ -64,9 +64,20 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 25.0,
                   ),
-                  MyButton(
-                    text: 'Sign In',
-                    onTap: () {},
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
+                    },
+                    child: MyButton(
+                      text: 'Sign In',
+                      onTap: () {
+
+                      },
+                    ),
                   ),
                   const SizedBox(
                     height: 25,
