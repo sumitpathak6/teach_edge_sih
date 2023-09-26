@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teach_edge/components/CourseCard.dart';
 import 'package:teach_edge/components/colors.dart';
+import 'package:teach_edge/components/liveclass_card.dart';
 import 'package:teach_edge/components/testimonial_card.dart';
+import 'package:teach_edge/model/class_data.dart';
 import 'package:teach_edge/model/course.dart';
 import 'package:teach_edge/model/testimonial.dart';
 import 'package:teach_edge/screens/login_page.dart';
@@ -125,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                   height: 12.0,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
+                  padding: const EdgeInsets.only(left: 8.0, bottom: 10.0),
                   child: Text(
                     'Upcoming Classes',
                     style: GoogleFonts.lato(
@@ -137,7 +139,16 @@ class HomeScreen extends StatelessWidget {
                 Container(
                   height: 250,
                   width: MediaQuery.of(context).size.width,
-                  color: Colors.red[100],
+                  child: ListView.builder(
+                      itemCount: classes.length,
+                      itemBuilder: (context, index) {
+                        LiveClass classa = classes[index];
+                        return LiveClassCard(
+                            subject: classa.subject,
+                            date: classa.date,
+                            time: classa.time,
+                            category: classa.category);
+                      }),
                 ),
                 const SizedBox(
                   height: 12.0,

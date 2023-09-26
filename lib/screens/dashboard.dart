@@ -24,7 +24,7 @@ class _DashBoardState extends State<DashBoard> {
   final tabs = [
     const HomeScreen(),
     AnnouncementPage(),
-    const LiveClassScreen(),
+    LiveClass(),
     ForumPage(),
     const ProfilePage(
       name: 'CLASS A1',

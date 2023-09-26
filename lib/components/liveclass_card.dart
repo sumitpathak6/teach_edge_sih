@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:teach_edge/model/class_data.dart';
 
-class CourseCard extends StatelessWidget {
-  final String name;
+class LiveClassCard extends StatelessWidget {
   final String subject;
-  final String instructor;
-  final String duration;
-  final String imagePath;
-
-  const CourseCard({
-    super.key,
-    required this.name,
-    required this.subject,
-    required this.instructor,
-    required this.duration,
-    required this.imagePath,
-  });
+  final DateTime date;
+  final TimeOfDay time;
+  final String category;
+  const LiveClassCard(
+      {super.key,
+      required this.subject,
+      required this.date,
+      required this.time,
+      required this.category});
 
   @override
   Widget build(BuildContext context) {
+    String formatTimeOfDay(TimeOfDay time) {
+      final now = DateTime.now();
+      final dateTime =
+          DateTime(now.year, now.month, now.day, time.hour, time.minute);
+      final formattedTime =
+          DateFormat.jm().format(dateTime); // Use 'jm' pattern
+      return formattedTime;
+    }
+
+    String formatDate(DateTime dateTime) {
+      return DateFormat('d MMMM').format(dateTime);
+    }
+
     return Container(
       height: 80,
       width: 50,
@@ -45,12 +56,13 @@ class CourseCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: ClipOval(
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                ),
+            child: Center(
+              child: Container(
+                child: const ClipOval(
+                    child: Icon(
+                  Icons.calendar_month_rounded,
+                  size: 40,
+                )),
               ),
             ),
           ),
@@ -66,16 +78,28 @@ class CourseCard extends StatelessWidget {
                   height: 8.0,
                 ),
                 Text(
-                  name,
-                  style: GoogleFonts.lato(fontWeight: FontWeight.bold),
+                  subject,
+                  style: GoogleFonts.lato(
+                      fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(height: 8.0),
                 GestureDetector(
                   onTap: () {},
-                  child: Text(
-                    instructor,
-                    style: GoogleFonts.lato(
-                        fontWeight: FontWeight.bold, color: Colors.blue),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.watch_later_rounded,
+                        size: 18,
+                      ),
+                      const SizedBox(
+                        width: 6.0,
+                      ),
+                      Text(
+                        formatTimeOfDay(time),
+                        style: GoogleFonts.lato(
+                            fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -85,17 +109,17 @@ class CourseCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 48,
+                height: 43,
               ),
               Row(
                 children: [
                   Icon(
-                    Icons.watch_later_rounded,
+                    Icons.calendar_month,
                     size: 20,
                     color: Colors.blue,
                   ),
                   Text(
-                    duration,
+                    formatDate(date),
                     style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                   ),
                 ],
