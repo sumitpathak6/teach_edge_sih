@@ -24,12 +24,12 @@ class _DashBoardState extends State<DashBoard> {
   final tabs = [
     const HomeScreen(),
     AnnouncementPage(),
-    LiveClass(),
+    const LiveClass(),
     ForumPage(),
     const ProfilePage(
-      name: 'CLASS A1',
-      teacherName: 'Teacher : Alice',
-      students: ['R1: Harry', 'R2: Bob', 'R3: Charlie', 'R4: Anna'],
+      name: '12th Science',
+      teacherName: 'Teacher : Mrs. Rekha',
+      students: ['R1: Ram', 'R2: Shyam', 'R3: Radha', 'R4: Rahul'],
       badges: ['Gold Badge', 'Silver Badge', 'Bronze Badge'],
       profilePictureUrl: 'https://example.com/profile-picture.jpg',
     ),

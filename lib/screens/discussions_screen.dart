@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:teach_edge/components/colors.dart';
 
 class ForumPage extends StatelessWidget {
   final List<Class> classes = List.generate(
     10,
-        (index) => Class(
+    (index) => Class(
       id: 'class${index + 1}',
       name: 'Class ${index + 1}',
     ),
@@ -13,7 +14,9 @@ class ForumPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 240, 200),
         title: const Text('Class Forum'),
       ),
       body: ListView.builder(
@@ -72,7 +75,9 @@ class _ClassDetailsPageState extends State<ClassDetailsPage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: primaryColor,
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 255, 240, 200),
           title: Text(widget.classObj.name),
           bottom: const TabBar(
             tabs: [
@@ -136,6 +141,8 @@ class ColumnSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         ElevatedButton(
           onPressed: () {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:teach_edge/components/colors.dart';
 
 class AnnouncementPage extends StatefulWidget {
   @override
@@ -56,15 +57,17 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
         title: const Text(' Personalized Courses '),
-        backgroundColor:
-            const Color(0xffb3e5f7), // Set the AppBar background color
+        backgroundColor: Color.fromARGB(
+            255, 255, 240, 200), // Set the AppBar background color
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
               'Date:',

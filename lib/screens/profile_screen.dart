@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:teach_edge/components/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   final String name;
@@ -19,126 +21,119 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile Page'),
-        backgroundColor: Color(0xffb3e5f7),
-      ),
-      body: Container(
-        color: Colors.white,
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    height: 200,
-                    width: 200,
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/logo.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 30.0,
-                    fontFamily: 'Lato',
-                    fontWeight: FontWeight.w700,
-                    height: 1.2857,
-                    color: Colors.blueGrey,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ExpansionTile(
-                    title: Container(
+        backgroundColor: primaryColor,
+        appBar: AppBar(
+          title: const Text('Profile Page'),
+          backgroundColor: const Color.fromARGB(255, 255, 240, 200),
+        ),
+        body: Container(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      height: 200,
                       width: 200,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          '$teacherName',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/logo.jpg',
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    children: students
-                        .map(
-                          (teamMember) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8.0,
-                              horizontal: 16.0,
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                teamMember,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
                   ),
-                ),
-                const SizedBox(height: 16),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    ' Feedback :',
-                    style: TextStyle(
-                      fontSize: 25.0,
+                  const SizedBox(height: 16),
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 30.0,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w700,
                       height: 1.2857,
                       color: Colors.blueGrey,
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ExpansionTile(
+                      title: Container(
+                        width: 200,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            '$teacherName',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                      children: students
+                          .map(
+                            (teamMember) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                                horizontal: 16.0,
+                              ),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  teamMember,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
 
-                // Updated badge layout in a column
-                Column(
-                  children: [
-                    _buildBadgeContainerWithText(
-                        'Efforts', 'assets/badge1.jpg'),
-                    _buildBadgeContainerWithText(
-                        'Communication', 'assets/badge2.jpg'),
-                    _buildBadgeContainerWithText(
-                        'Planning', 'assets/badge3.jpg'),
-                    SizedBox(height: 8),
-                    // Box with the badge image
-                    _buildBadgeBoxWithHeading(),
-                  ],
-                ),
-              ],
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Feedback',
+                        style: GoogleFonts.lato(fontSize: 18.0),
+                      )),
+                  const SizedBox(height: 20),
+
+                  // Updated badge layout in a column
+                  Column(
+                    children: [
+                      _buildBadgeContainerWithText(
+                          'Efforts', 'assets/badge1.jpg'),
+                      _buildBadgeContainerWithText(
+                          'Communication', 'assets/badge2.jpg'),
+                      _buildBadgeContainerWithText(
+                          'Planning', 'assets/badge3.jpg'),
+                      const SizedBox(height: 8),
+                      // Box with the badge image
+                      _buildBadgeBoxWithHeading(),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   Widget _buildBadgeContainerWithText(String text, String badgeImageAsset) {
     return Column(
       children: [
         Text(text),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -168,7 +163,7 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         children: [
           // Removed the "Badge" heading text
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           // Add the badge image here
           Image.asset(
             'assets/badge4.jpg',

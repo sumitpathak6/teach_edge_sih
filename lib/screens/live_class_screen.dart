@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:teach_edge/components/colors.dart';
 import 'package:teach_edge/model/class_meet.dart';
-
 
 class LiveClass extends StatefulWidget {
   const LiveClass({super.key});
@@ -67,7 +67,9 @@ class _LiveClassState extends State<LiveClass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 255, 240, 200),
           title: Text(
             'Live Class',
             style: GoogleFonts.lato(fontWeight: FontWeight.bold),

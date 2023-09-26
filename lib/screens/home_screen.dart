@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: primaryColor,
         appBar: AppBar(
-          backgroundColor: Colors.blue[300],
+          backgroundColor: Color.fromARGB(255, 255, 240, 200),
           automaticallyImplyLeading: false,
           elevation: 0,
           title: Text(
