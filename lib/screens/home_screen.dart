@@ -1,105 +1,173 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teach_edge/components/CourseCard.dart';
 import 'package:teach_edge/components/colors.dart';
-import 'package:teach_edge/providers/screen_provider.dart';
-import 'package:teach_edge/screens/discussions_screen.dart';
-import 'package:teach_edge/screens/live_class_screen.dart';
+import 'package:teach_edge/components/testimonial_card.dart';
+import 'package:teach_edge/model/course.dart';
+import 'package:teach_edge/model/testimonial.dart';
 import 'package:teach_edge/screens/login_page.dart';
-import 'package:teach_edge/screens/profile_screen.dart';
-import 'package:teach_edge/screens/quiz_screen.dart';
-import 'package:teach_edge/screens/register_page.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teach_edge/screens/settings_screen.dart';
+import 'package:teach_edge/screens/student_list.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  final tabs = [
-    const RegisterPage(),
-    AnnouncementPage(),
-    const LiveClassScreen(),
-    ForumPage(),
-    const ProfilePage(
-      name: 'CLASS A1',
-      teacherName: 'Teacher : Alice',
-      students: ['R1: Harry', 'R2: Bob', 'R3: Charlie', 'R4: Anna'],
-      badges: ['Gold Badge', 'Silver Badge', 'Bronze Badge'],
-      profilePictureUrl: 'https://example.com/profile-picture.jpg',
-    ),
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          const String url = 'https://ndl.iitkgp.ac.in/';
-          final Uri uri = Uri.parse(url);
-          if (await canLaunchUrl(uri)) {
-            await launchUrl(uri);
-          } else {
-            throw 'Could not launc $url';
-          }
-        },
-        backgroundColor: Colors.lightBlue[300],
-        child: const Icon(
-          Icons.local_library,
-          size: 35,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: primaryColor,
+        appBar: AppBar(
+          backgroundColor: Colors.blue[300],
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          title: Text(
+            'Dashboard',
+            style: GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 22),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    (MaterialPageRoute(builder: (context) => StudentList())));
+              },
+              icon: const Icon(Icons.list_alt_sharp),
+            ),
+            PopupMenuButton<String>(
+              iconSize: 30,
+              offset: const Offset(0, 52),
+              onSelected: (value) {
+                if (value == 'settings') {
+                  Navigator.of(context).push((MaterialPageRoute(
+                      builder: (context) => SettingsPage())));
+                } else if (value == 'help_support') {
+                } else if (value == 'logout') {
+                  Navigator.of(context).push(
+                      (MaterialPageRoute(builder: (context) => LoginPage())));
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                const PopupMenuItem<String>(
+                  value: 'settings',
+                  child: Text('Settings'),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'help_support',
+                  child: Text('Help and Support'),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'logout',
+                  child: Text('Logout'),
+                ),
+              ],
+            ),
+          ],
         ),
-      ),
-      body: tabs[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Colors.black,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12.0, top: 12.0, right: 12.0),
+            child: Column(
+              children: [
+                Text(
+                  'Welcome to TeachEdge',
+                  style: GoogleFonts.lato(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 30, 1, 81)),
+                ),
+                const SizedBox(height: 12.0),
+                Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 150,
+                        width: 150,
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/logo.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, bottom: 10.0),
+                  child: Text(
+                    'Your Courses',
+                    style: GoogleFonts.lato(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 30, 1, 81)),
+                  ),
+                ),
+                Container(
+                  height: 250,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                      itemCount: courses.length,
+                      itemBuilder: (context, index) {
+                        Course course = courses[index];
+                        return CourseCard(
+                          duration: course.duration,
+                          imagePath: course.imagePath,
+                          name: course.name,
+                          instructor: course.instructor,
+                          subject: course.subject,
+                        );
+                      }),
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'Upcoming Classes',
+                    style: GoogleFonts.lato(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 30, 1, 81)),
+                  ),
+                ),
+                Container(
+                  height: 250,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.red[100],
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, bottom: 10.0),
+                  child: Text(
+                    'Testimonials',
+                    style: GoogleFonts.lato(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 30, 1, 81)),
+                  ),
+                ),
+                Container(
+                  height: 250,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                      itemCount: testimonials.length,
+                      itemBuilder: (context, index) {
+                        Testimonial testimonial = testimonials[index];
+                        return TestiMonialCard(
+                            imagepath: testimonial.imagepath,
+                            feedback: testimonial.feedback);
+                      }),
+                ),
+              ],
             ),
-            label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.quiz_rounded,
-              color: Colors.black,
-            ),
-            label: 'Assignments',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.video_call,
-              color: Colors.black,
-              size: 25.0,
-            ),
-            label: 'Live Class',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.people_alt,
-              color: Colors.black,
-            ),
-            label: 'Discussions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_2_outlined,
-              color: Colors.black,
-            ),
-            label: 'Profile',
-          ),
-        ],
+        ),
       ),
     );
   }

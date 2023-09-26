@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teach_edge/components/button.dart';
 import 'package:teach_edge/components/text_field.dart';
-import 'package:teach_edge/screens/home_screen.dart';
+import 'package:teach_edge/screens/dashboard.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
+                          builder: (context) => const DashBoard(),
                         ),
                       );
                     },

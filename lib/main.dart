@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:teach_edge/auth/login_or_register.dart';
-import 'package:teach_edge/screens/home_screen.dart';
+import 'package:teach_edge/screens/dashboard.dart';
 import 'package:teach_edge/screens/splash_screen.dart';
 
 void main() {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       routes: {
         '/auth': (context) => const LoginOrRegister(),
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) => const DashBoard(),
       },
     );
   }
