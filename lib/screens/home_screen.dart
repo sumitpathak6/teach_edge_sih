@@ -7,6 +7,7 @@ import 'package:teach_edge/screens/live_class_screen.dart';
 import 'package:teach_edge/screens/login_page.dart';
 import 'package:teach_edge/screens/profile_screen.dart';
 import 'package:teach_edge/screens/quiz_screen.dart';
+import 'package:teach_edge/screens/register_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,60 +19,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-   int _selectedIndex = 0;
-  final List<Widget> _screens = const [
-    HomeScreen(), // Home screen
-    QuizScreen(), // Quiz screen
-    LiveClassScreen(), // Live class screen
-    DiscussionsScreen(), // Discussions screen
-    ProfileScreen(), // Profile screen
+  int _selectedIndex = 0;
+  final tabs = [
+    const RegisterPage(),
+    AnnouncementPage(),
+    const LiveClassScreen(),
+    ForumPage(),
+    const ProfilePage(
+      name: 'CLASS A1',
+      teacherName: 'Teacher : Alice',
+      students: ['R1: Harry', 'R2: Bob', 'R3: Charlie', 'R4: Anna'],
+      badges: ['Gold Badge', 'Silver Badge', 'Bronze Badge'],
+      profilePictureUrl: 'https://example.com/profile-picture.jpg',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        title: Text(
-          'Dashboard',
-          style: GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 22),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.list_alt_sharp),
-          ),
-          PopupMenuButton<String>(
-            iconSize: 30,
-            offset: const Offset(0, 52),
-            onSelected: (value) {
-              if (value == 'settings') {
-              } else if (value == 'help_support') {
-              } else if (value == 'logout') {}
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
-                value: 'settings',
-                child: Text('Settings'),
-              ),
-              const PopupMenuItem<String>(
-                value: 'help_support',
-                child: Text('Help and Support'),
-              ),
-              const PopupMenuItem<String>(
-                value: 'logout',
-                child: Text('Logout'),
-              ),
-            ],
-          ),
-        ],
-      ),
-      
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           const String url = 'https://ndl.iitkgp.ac.in/';
@@ -88,9 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
           size: 35,
         ),
       ),
+      body: tabs[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        onTap: (int index) {
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
         },
         items: const [
           BottomNavigationBarItem(
@@ -105,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.quiz_rounded,
               color: Colors.black,
             ),
-            label: 'Quiz',
+            label: 'Assignments',
           ),
           BottomNavigationBarItem(
             icon: Icon(
